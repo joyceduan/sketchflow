@@ -1,7 +1,6 @@
-# TO-DO
+# SketchFlow
 
-## Welcome to SketchFlow!
-Joyce Duan and Austin Mills
+## Goal
 
 The goal of this project is to create an interactive sketch management system (SMS) that allows users to collaborate, branch, and merge drawings. A user will be able to sketch and save the drawing at any point in time–they can then choose to revert back to a previous frame or choose to branch off a particular sketch. We want to streamline the design process into a structured management system akin to GitHub with code management. In this way, artists will be able to view and navigate through a comprehensive history of their sketch and therefore retrace their thought processes.
 
