@@ -17,3 +17,7 @@ After setting up, you can run the application using Rails server:
 Your app will be accessible at:
 
     localhost:3000
+
+The app is also hosted at:
+
+    sketchflow.herokuapp.com

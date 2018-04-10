@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   resources :sketches
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
+  authenticated :user do
+	  root :to => "sketches#index"
+  end
+
   root 'static_pages#home'
   get 'static_pages/home'
   get '/', to: 'static_pages#home'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  # root 'application#hello'
 end

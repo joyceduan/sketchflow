@@ -1,4 +1,5 @@
 class SketchesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_sketch, only: [:show, :edit, :update, :destroy]
 
   # GET /sketches
@@ -14,7 +15,7 @@ class SketchesController < ApplicationController
 
   # GET /sketches/new
   def new
-    @sketch = Sketch.new
+    @sketch = current_user.sketches.build
   end
 
   # GET /sketches/1/edit
@@ -24,7 +25,7 @@ class SketchesController < ApplicationController
   # POST /sketches
   # POST /sketches.json
   def create
-    @sketch = Sketch.new(sketch_params)
+    @sketch = current_user.sketches.build.(sketch_params)
 
     respond_to do |format|
       if @sketch.save

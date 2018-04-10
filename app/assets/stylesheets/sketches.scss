@@ -1,3 +1,37 @@
-// Place all the styles related to the Sketches controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+h1 {
+	font-size: 500%;
+	color: 000000;
+	font-family: 'Pacifico';
+}
+
+.sketch-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 100px;
+}
+
+.navbar-default .navbar-nav>.active> a, 
+.navbar-default .navbar-nav>.active> a:hover {
+  background: #B0B0B0;
+}
+
+ul.nav.navbar-nav .dropdown.open .dropdown-toggle{
+  background-color: #B0B0B0;
+}
+
+.slogan {
+	position: relative;
+	top: -15px;
+}
+
+#nav-button {
+	padding-right: 10px;
+}
+
+.navbar-default {
+	background-color: #CDCDCD;
+}
