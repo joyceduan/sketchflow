@@ -8,6 +8,13 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
+gem 'bootstrap-sass', '3.3.7'
+gem 'jquery-rails'
+gem 'bcrypt',         '3.1.11'
+
+gem "react-rails"
+gem 'webpacker'
+
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
