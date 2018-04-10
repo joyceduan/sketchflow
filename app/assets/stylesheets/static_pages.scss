@@ -42,47 +42,20 @@
             animation: fadein 2s;
 }
 
-.sign-up-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 h1 {
 	font-size: 500%;
 	color: 000000;
 	font-family: 'Pacifico';
 }
 
-h2 {
-	font-family: 'Source Sans Pro';
-	color: 000000;
-}
-
 h3 {
 	color: #2A2A2A;
 	font-family: 'Source Sans Pro';
-} 
-
-p {
-	font-family: 'Source Sans Pro';
 }
-
-.field {
-	padding-top: 10px;
-	text-align: center;
-	padding-bottom: 10px;
-}
-
-.field , label {
-	font-family: 'Source Sans Pro';
-	text-align: left;
-}
-
 
 .button {
-	background: #F31188;
 	border: none;
+	background: #F31188;
 	font-size: 16px;
 	border-radius: 3px;
 	width: 200px;
@@ -91,7 +64,6 @@ p {
 	padding: 7px 0;
 	margin: 10px auto;
 	color: #F5F5F5;
-	font-family: 'Source Sans Pro';
 }
 
 .button:hover:enabled {
@@ -116,10 +88,6 @@ p {
 }
 
 .button[name='sign-up'] {
-	background: #F31188;
-}
-
-.button[name='sign-up-1'] {
 	background: #F31188;
 }
 
