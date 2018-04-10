@@ -15,6 +15,8 @@ gem 'bcrypt',         '3.1.11'
 gem "react-rails"
 gem 'webpacker'
 
+gem 'devise'
+
 group :development, :test do
   gem 'sqlite3', '1.3.13'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sketches
+  devise_for :users
   root 'static_pages#home'
   get 'static_pages/home'
   get '/', to: 'static_pages#home'

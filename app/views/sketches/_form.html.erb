@@ -1,0 +1,32 @@
+<%= form_with(model: sketch, local: true) do |form| %>
+  <% if sketch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sketch.errors.count, "error") %> prohibited this sketch from being saved:</h2>
+
+      <ul>
+      <% sketch.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_area :title, id: :sketch_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :sketch_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :sketch_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

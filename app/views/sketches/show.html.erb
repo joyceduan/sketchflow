@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @sketch.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @sketch.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sketch.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_sketch_path(@sketch) %> |
+<%= link_to 'Back', sketches_path %>

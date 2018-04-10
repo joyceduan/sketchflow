@@ -8,8 +8,8 @@ class Home extends React.Component {
         <div className='home-container'>
     		  <h1>SketchFlow</h1>
     		  <h3 className="slogan">Create collaboratively.</h3>
-    		  <a href="/login" className='button' name="log-in">Log In</a>
-          <a href="/signup" className="button" name="sign-up">Sign Up</a>
+    		  <a href="/users/sign_in" className='button' name="log-in">Log In</a>
+          <a href="users/sign_up" className="button" name="sign-up">Sign Up</a>
         </div>
       </div>
     );
