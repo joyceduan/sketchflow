@@ -1,3 +1,4 @@
+
 <%= form_with(model: sketch, local: true) do |form| %>
   <% if sketch.errors.any? %>
     <div id="error_explanation">
@@ -12,21 +13,16 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_area :title, id: :sketch_title %>
+    <%= form.label :title %><br />
+    <%= form.text_field :title, id: :sketch_title, autocomplete: "off", :size => 40 %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :sketch_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :sketch_user_id %>
+    <%= form.label :description %><br />
+    <%= form.text_area :description, id: :sketch_description, cols: "40", rows: "4" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => 'button' %>
   </div>
 <% end %>

@@ -8,7 +8,7 @@ class NavBar extends React.Component {
   render () {
     return (
       <div>
-      	<nav className="navbar navbar-default navbar-fixed-top">
+      	<nav className="navbar navbar-inverse navbar-fixed-top">
       		<div className="container-fluid">
       			<div className="navbar-header">
 			        <ul className="nav navbar-nav">
@@ -21,7 +21,7 @@ class NavBar extends React.Component {
 				</div>
 				<ul className="nav navbar-nav navbar-right">
 					<li className="dropdown">
-			        	<a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.username.charAt(0).toUpperCase() + this.props.username.substr(1,this.props.username.indexOf(' '))}
+			        	<a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.username.charAt(0).toUpperCase() + this.props.username.substr(1, this.props.username.indexOf(' '))}
 			        		<span className="caret"></span>
 			        	</a>
 			        	<ul className="dropdown-menu">

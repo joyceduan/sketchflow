@@ -9,10 +9,12 @@ class Sketches extends React.Component {
   render () {
     return (
       <div>
-        {<NavBar
-        	username={this.props.username} />}
+        {<NavBar username={this.props.username} />}
         <div className="sketch-container"> 
           <h1>No sketches yet!</h1>
+        </div>
+        <div className="new-sketch-button">
+          <a className="button" id="new-sketch" href="/sketches/new">New Sketch</a>
         </div>
       </div>
     );

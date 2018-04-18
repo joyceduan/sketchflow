@@ -14,13 +14,11 @@ h1 {
 	padding-top: 100px;
 }
 
-.navbar-default .navbar-nav>.active> a, 
-.navbar-default .navbar-nav>.active> a:hover {
-  background: #B0B0B0;
-}
-
-ul.nav.navbar-nav .dropdown.open .dropdown-toggle{
-  background-color: #B0B0B0;
+.form-container {
+	padding-top:50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .slogan {
@@ -32,6 +30,20 @@ ul.nav.navbar-nav .dropdown.open .dropdown-toggle{
 	padding-right: 10px;
 }
 
-.navbar-default {
-	background-color: #CDCDCD;
+.new-sketch-button {
+	margin-top: 50px;
+}
+
+.field {
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.field , label {
+	font-family: 'Source Sans Pro';
+	text-align: left;
+}
+
+.button[name='new-sketch-1'] {
+	background: #FF5533;
 }

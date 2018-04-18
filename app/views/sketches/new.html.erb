@@ -1,5 +1,17 @@
-<h1>New Sketch</h1>
-
-<%= render 'form', sketch: @sketch %>
-
-<%= link_to 'Back', sketches_path %>
+<!DOCTYPE html>
+<html>
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+  	<link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+  	<body>
+  		<%= javascript_pack_tag 'application' %>
+		<% if user_signed_in? %>
+			<%= react_component("NavBar", {username: current_user.name}) %>
+			<div class="form-container">
+				<h1>New Sketch</h1>
+		        <%= render 'form', sketch: @sketch %>
+	    	</div>
+	    <% else %>
+	        <%= react_component("Home") %>
+	    <% end %>
+	</body>
+</html>
