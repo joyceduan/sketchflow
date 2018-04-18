@@ -16,6 +16,7 @@ gem "react-rails"
 gem 'webpacker'
 
 gem 'devise'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
