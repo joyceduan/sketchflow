@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :drawings
+  resources :branches
   resources :sketches
   devise_for :users, :controllers => { registrations: 'registrations' }
 

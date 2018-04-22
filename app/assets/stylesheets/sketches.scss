@@ -1,6 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.ugly-link {
+    color: #000000;
+    text-decoration: none;
+    font-family: 'Source Sans Pro';
+}
+
+.ugly-link:hover 
+{
+     color: #000000; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
+
 .bold {
 	font-size: 150%;
 	font-weight: bold;
