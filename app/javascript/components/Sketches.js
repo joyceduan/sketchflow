@@ -12,6 +12,7 @@ class SketchGrid extends React.Component {
     var sketch_count = this.props.sketch_count;
     var sketch_titles = this.props.sketch_titles;
     var sketch_descriptions = this.props.sketch_descriptions;
+    var sketch_images = this.props.sketch_images;
     
     return (
       <div>
@@ -22,10 +23,20 @@ class SketchGrid extends React.Component {
         <div className="sketch-grid">
           <ul className='sketch-list'>
             {sketch_titles.map(function(sketch_title, index) {
-              console.log(sketch_ids[index]);
+              var imgsrc = '';
+              var default_image = 0;
+              if (sketch_images[index].thumb.url != null) {
+                imgsrc = sketch_images[index].thumb.url;
+                default_image = 1;
+              }
+              else {
+                imgsrc = "/assets/no-thumbnail.jpg";
+              }
               return (
                 <li key={index} className="sketch-item">
                   <div className="sketch-container">
+                    {default_image == 0 && <img src={imgsrc} width="120" height="120"/>}
+                    {default_image != 0 && <img src={imgsrc}/>}
                     <div className="bold">{sketch_title}</div>
                     <div>{sketch_descriptions[index]}</div>
                   </div>
@@ -45,6 +56,7 @@ SketchGrid.propTypes = {
   sketch_ids: PropTypes.array.isRequired,
   sketch_titles: PropTypes.array.isRequired,
   sketch_descriptions: PropTypes.array.isRequired,
+  sketch_images: PropTypes.array.isRequired,
 }
 
 class Sketches extends React.Component {
@@ -61,6 +73,7 @@ class Sketches extends React.Component {
           sketch_ids={this.props.sketch_ids}
           sketch_titles={this.props.sketch_titles}
           sketch_descriptions={this.props.sketch_descriptions}
+          sketch_images={this.props.sketch_images}
         />}
         <div className="new-sketch-button">
           <a className="button" id="new-sketch" href="/sketches/new">New Sketch</a>
@@ -77,6 +90,7 @@ Sketches.propTypes = {
   sketch_ids: PropTypes.array.isRequired,
   sketch_titles: PropTypes.array.isRequired,
   sketch_descriptions: PropTypes.array.isRequired,
+  sketch_images: PropTypes.array.isRequired,
 }
 
 export default Sketches
