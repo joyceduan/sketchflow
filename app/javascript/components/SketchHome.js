@@ -6,8 +6,26 @@ import NavBar from './NavBar'
 class NoDrawingsYet extends React.Component {
   constructor(props) {
     super(props);
+    this.startFirstDrawing = this.startFirstDrawing.bind(this);
+  }
+  startFirstDrawing(event) {
+    event.preventDefault();
+    var canvas_bg = "hello!!!";
+    axios.post('/drawings/canvas', {
+        drawing: {
+          canvas_bg: canvas_bg
+        }
+      }
+    )
+    .then(function (response) {
+      window.location = '/drawings/new';
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
   }
   render () {
+    var self = this;
     var sketch_title = this.props.sketch_title;
     var sketch_description = this.props.sketch_description;
     return (
@@ -15,7 +33,7 @@ class NoDrawingsYet extends React.Component {
         <div className="no-drawings-container">
           <h2 id="sketch-title">{sketch_title}</h2>
           <p id="sketch-description">{sketch_description}</p>
-          <a className="button" id="new-drawing" href="/drawings/new">Draw</a>
+          <a className="button" id="new-drawing" href="/drawings/new" onClick={self.startFirstDrawing}>Draw</a>
         </div>
       </div>
     );

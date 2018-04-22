@@ -1,4 +1,5 @@
 class DrawingsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_drawing, only: [:show, :edit, :update, :destroy]
 
   # GET /drawings
@@ -12,9 +13,16 @@ class DrawingsController < ApplicationController
   def show
   end
 
+  # POST /drawings/canvas
+  def canvas
+    Rails.logger.debug(canvas_params[:canvas_bg])
+    $canvas_bg = canvas_params[:canvas_bg]
+  end
+
   # GET /drawings/new
   def new
-    @drawing = Drawing.new
+    @drawing = Drawing.new()
+    @canvas_bg = $canvas_bg
   end
 
   # GET /drawings/1/edit
@@ -70,5 +78,9 @@ class DrawingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def drawing_params
       params.require(:drawing).permit(:branch_id)
+    end
+
+    def canvas_params
+      params.require(:drawing).permit(:canvas_bg)
     end
 end
