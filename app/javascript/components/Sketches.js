@@ -38,7 +38,7 @@ class SketchGrid extends React.Component {
                   <div className="sketch-container">
                     {default_image == 0 && <a href={imgredirect}><img src={imgsrc} width="120" height="120"/></a>}
                     {default_image != 0 && <a href={imgredirect}><img src={imgsrc}/></a>}
-                    <a href={imgredirect}><div className="bold">{sketch_title}</div></a>
+                    <a href={imgredirect} className="ugly-link"><div className="bold">{sketch_title}</div></a>
                     <div>{sketch_descriptions[index]}</div>
                   </div>
                 </li>
