@@ -11,7 +11,6 @@ class SketchesController < ApplicationController
   # GET /sketches/1
   # GET /sketches/1.json
   def show
-    # redirect_to sketches_path
   end
 
   # GET /sketches/new
