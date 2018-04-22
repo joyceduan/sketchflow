@@ -97,3 +97,22 @@
 	display: flex;
 	flex-direction: column;
 }
+
+.no-drawings-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#sketch-title {
+	margin-top: 30px;
+	text-align: center;
+	font-size: 400%;
+	font-family: 'Pacifico';
+}
+
+#sketch-description {
+	margin-top: 10px;
+	font-family: 'Source Sans Pro';
+	font-size: 110%;
+}
