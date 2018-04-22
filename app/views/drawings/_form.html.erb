@@ -1,0 +1,22 @@
+<%= form_with(model: drawing, local: true) do |form| %>
+  <% if drawing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(drawing.errors.count, "error") %> prohibited this drawing from being saved:</h2>
+
+      <ul>
+      <% drawing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :branch_id %>
+    <%= form.number_field :branch_id, id: :drawing_branch_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
