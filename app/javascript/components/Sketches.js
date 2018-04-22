@@ -25,6 +25,7 @@ class SketchGrid extends React.Component {
             {sketch_titles.map(function(sketch_title, index) {
               var imgsrc = '';
               var default_image = 0;
+              var imgredirect = 'sketches/' + sketch_ids[index];
               if (sketch_images[index].thumb.url != null) {
                 imgsrc = sketch_images[index].thumb.url;
                 default_image = 1;
@@ -35,9 +36,9 @@ class SketchGrid extends React.Component {
               return (
                 <li key={index} className="sketch-item">
                   <div className="sketch-container">
-                    {default_image == 0 && <img src={imgsrc} width="120" height="120"/>}
-                    {default_image != 0 && <img src={imgsrc}/>}
-                    <div className="bold">{sketch_title}</div>
+                    {default_image == 0 && <a href={imgredirect}><img src={imgsrc} width="120" height="120"/></a>}
+                    {default_image != 0 && <a href={imgredirect}><img src={imgsrc}/></a>}
+                    <a href={imgredirect}><div className="bold">{sketch_title}</div></a>
                     <div>{sketch_descriptions[index]}</div>
                   </div>
                 </li>
