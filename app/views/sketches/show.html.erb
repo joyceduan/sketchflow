@@ -15,5 +15,10 @@
   <%= @sketch.user_id %>
 </p>
 
+<p>
+	<strong>Image:</strong>
+	<%= image_tag(@sketch.image_url(:thumb).to_s) %>
+</p>
+
 <%= link_to 'Edit', edit_sketch_path(@sketch) %> |
 <%= link_to 'Back', sketches_path %>
