@@ -74,6 +74,6 @@ class SketchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sketch_params
-      params.require(:sketch).permit(:title, :description)
+      params.require(:sketch).permit(:title, :description, :image)
     end
 end
