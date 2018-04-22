@@ -21,7 +21,7 @@ class NavBar extends React.Component {
 				</div>
 				<ul className="nav navbar-nav navbar-right">
 					<li className="dropdown">
-			        	<a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.username.charAt(0).toUpperCase() + this.props.username.substr(1, this.props.username.indexOf(' '))}
+			        	<a className="dropdown-toggle" data-toggle="dropdown" href="#">{this.props.username.charAt(0).toUpperCase() + this.props.username.substr(1)}
 			        		<span className="caret"></span>
 			        	</a>
 			        	<ul className="dropdown-menu">
