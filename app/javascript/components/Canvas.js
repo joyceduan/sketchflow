@@ -388,38 +388,6 @@ class Canvas extends React.Component {
                                     <Slider ref='slider' step={0.1}
                                             defaultValue={this.state.lineWidth / 100}
                                             onChange={(e, v) => this.setState({lineWidth: v * 100})}/>
-                                    <br/>
-                                    <label htmlFor='zoom'>Zoom</label>
-                                    <div>
-                                        <IconButton
-                                            ref='zoom'
-                                            onTouchTap={(e) => this._sketch.zoom(1.25)}>
-                                            <ZoomInIcon/>
-                                        </IconButton>
-                                        <IconButton
-                                            ref='zoom1'
-                                            onTouchTap={(e) => this._sketch.zoom(0.8)}>
-                                            <ZoomOutIcon/>
-                                        </IconButton>
-                                        <br/>
-                                        <br/>
-                                        <Toggle label="Control size"
-                                                defaultToggled={this.state.controlledSize}
-                                                onToggle={(e) => this.setState({controlledSize: !this.state.controlledSize})}/>
-                                        <br/>
-                                        <label htmlFor='xSize'>Change Canvas Width</label>
-                                        <Slider ref='xSize' step={1}
-                                                min={10} max={1000}
-                                                defaultValue={this.state.sketchWidth}
-                                                onChange={(e, v) => this.setState({sketchWidth: v})}/>
-                                        <br/>
-                                        <label htmlFor='ySize'>Change Canvas Height</label>
-                                        <Slider ref='ySize' step={1}
-                                                min={10} max={1000}
-                                                defaultValue={this.state.sketchHeight}
-                                                onChange={(e, v) => this.setState({sketchHeight: v})}/>
-                                        <br/>
-                                    </div>
                                 </CardText>
                             </Card>
                             <Card style={{margin: '5px 10px 5px 0'}}>
@@ -451,73 +419,14 @@ class Canvas extends React.Component {
 
                                     <br/>
                                     <br/>
-                                    <label htmlFor='lineColor'>Set Image Background</label>
-                                    <br/>
-
-                                    <Toggle label="Fit canvas (X,Y)"
-                                            defaultToggled={this.state.stretched}
-                                            onToggle={(e) => this.setState({stretched: !this.state.stretched})}/>
-
-                                    <Toggle label="Fit canvas (X)"
-                                            defaultToggled={this.state.stretchedX}
-                                            onToggle={(e) => this.setState({stretchedX: !this.state.stretchedX})}/>
-
-                                    <Toggle label="Fit canvas (Y)"
-                                            defaultToggled={this.state.stretchedY}
-                                            onToggle={(e) => this.setState({stretchedY: !this.state.stretchedY})}/>
-
-                                    <div>
-                                        <DropZone
-                                            ref="dropzone"
-                                            accept='image/*'
-                                            multiple={false}
-                                            style={styles.dropArea}
-                                            activeStyle={styles.activeStyle}
-                                            rejectStyle={styles.rejectStyle}
-                                            onDrop={this._onBackgroundImageDrop}>
-                                            Try dropping an image here,<br/>
-                                            or click<br/>
-                                            to select image as background.
-                                        </DropZone>
-                                    </div>
-                                </CardText>
-                            </Card>
-
-                            <Card style={{margin: '5px 10px 5px 0'}}>
-                                <CardHeader title='Images' actAsExpander={true} showExpandableButton={true}/>
-                                <CardText expandable={true}>
-
-                                    <div>
-                                        <TextField
-                                            floatingLabelText='Image URL'
-                                            hintText='Copy/Paste an image URL'
-                                            ref={(c) => this._imageUrlTxt = c}
-                                            defaultValue='https://files.gamebanana.com/img/ico/sprays/4ea2f4dad8d6f.png'/>
-
-                                        <br/>
-
-                                        <RaisedButton
-                                            label='Load Image from URL'
-                                            onTouchTap={(e) => this._sketch.addImg(this._imageUrlTxt.getValue())}/>
-                                    </div>
-
-                                    <br/>
-
-                                    <br/>
-
-                                    <div>
-                                        <RaisedButton
-                                            label='Load Image from Data URL'
-                                            onTouchTap={(e) => this._sketch.addImg(dataUrl)}/>
-                                    </div>
-                                    <div>
-                                        <RaisedButton
-                                            label='Pull'
-                                            onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
-                                    </div>
 
                                 </CardText>
                             </Card>
+
+                            <div>
+                                <br/>
+                                <RaisedButton label='Pull From Branch' onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
+                            </div>
 
                         </div>
                     </div>

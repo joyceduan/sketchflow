@@ -29,9 +29,10 @@ class SketchesController < ApplicationController
   # POST /sketches
   # POST /sketches.json
   def create
+    sketch_params[:data_url] = "default"
     sketch_params[:user_id] = current_user.id
+    Rails.logger.debug("NEW SKETCH PARAMS")
     Rails.logger.debug(sketch_params)
-    Rails.logger.debug(current_user.id)
     @sketch = current_user.sketches.build(sketch_params)
 
     respond_to do |format|
@@ -77,6 +78,6 @@ class SketchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sketch_params
-      params.require(:sketch).permit(:title, :description, :image)
+      params.require(:sketch).permit(:title, :description, :data_url)
     end
 end

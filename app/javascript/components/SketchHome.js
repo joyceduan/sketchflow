@@ -7,9 +7,9 @@ class ShowBranchesAndDrawings extends React.Component {
   constructor(props) {
     super(props);
     this.startDrawing = this.startDrawing.bind(this);
+    this.startDrawingNewBranch = this.startDrawingNewBranch.bind(this);
   }
-  startDrawing(event) {
-    // console.log(event.target.href);
+  startDrawingNewBranch(event) {
     var drawing_url = this.props.drawing_urls[event.target.id];
     event.preventDefault();
     console.log(event.target.id);
@@ -17,6 +17,29 @@ class ShowBranchesAndDrawings extends React.Component {
     var sketch_id = this.props.sketch_id;
     axios.post('/drawings/canvas', {
         drawing: {
+          new_branch: true,
+          sketch_id: sketch_id,
+          canvas_bg: drawing_url,
+        }
+      }
+    )
+    .then(function (response) {
+      window.location = '/drawings/new';
+      // console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
+  }
+  startDrawing(event) {
+    var drawing_url = this.props.drawing_urls[event.target.id];
+    event.preventDefault();
+    console.log(event.target.id);
+    console.log(drawing_url);
+    var sketch_id = this.props.sketch_id;
+    axios.post('/drawings/canvas', {
+        drawing: {
+          new_branch: false,
           sketch_id: sketch_id,
           canvas_bg: drawing_url,
         }
@@ -32,26 +55,31 @@ class ShowBranchesAndDrawings extends React.Component {
   }
   render () {
     var self = this;
+    var sketch_title = this.props.sketch_title;
     var branch_ids  = this.props.branch_ids;
     var drawing_branch_ids = this.props.drawing_branch_ids;
     var drawing_urls = this.props.drawing_urls;
+    console.log('branch ids: \n');
+    console.log(branch_ids);
     return (
       <div>
+        <h2 id="sketch-title-with-branches">{sketch_title}</h2>
         <div className="show-branches-container">
           <div className="row">
             {branch_ids.map(function(branch_id, i) {
+                console.log(i);
                 return (
                   <div key={i} className="column">
                     {i == 0 && <h2 className="branch-title">Master</h2>}
                     {i != 0 && <h2 className="branch-title">{"Branch " + i}</h2>}
                     {drawing_branch_ids.map(function(drawing_branch_id, j) {
-                      if (drawing_branch_id == drawing_branch_id) {
+                      if (drawing_branch_id == branch_id) {
                         return (
                           <div key={j}>
                             <img key={j} className="img-drawings" src={drawing_urls[j]} width="180" height="120"></img>
-                            <div className="row">
+                            <div className="div-tiny-button">
                               <a href="drawings/new" id={j} className="tiny-button" name="continue-branch" onClick={self.startDrawing}>Continue Branch</a>
-                              <a href="drawings/new" id={j} className="tiny-button" name="new-branch">New Branch</a>
+                              <a href="drawings/new" id={j} className="tiny-button" name="new-branch" onClick={self.startDrawingNewBranch}>New Branch</a>
                             </div>
                           </div>
                         )
@@ -69,6 +97,7 @@ class ShowBranchesAndDrawings extends React.Component {
 
 ShowBranchesAndDrawings.propTypes = {
   sketch_id: PropTypes.number.isRequired,
+  sketch_title: PropTypes.string.isRequired,
   branch_ids: PropTypes.array.isRequired,
   drawing_branch_ids: PropTypes.array.isRequired,
   drawing_urls: PropTypes.array.isRequired,
@@ -130,7 +159,7 @@ class SketchHome extends React.Component {
       <div>
         {<NavBar username={this.props.username} />}
         {branch_count == 0 && <NoDrawingsYet sketch_id={this.props.sketch_id} sketch_title={this.props.sketch_title} sketch_description={this.props.sketch_description}/>}
-        {branch_count != 0 && <ShowBranchesAndDrawings sketch_id={this.props.sketch_id} branch_ids={this.props.branch_ids} drawing_branch_ids={this.props.drawing_branch_ids} drawing_urls={this.props.drawing_urls} />}
+        {branch_count != 0 && <ShowBranchesAndDrawings sketch_id={this.props.sketch_id} sketch_title={this.props.sketch_title} branch_ids={this.props.branch_ids} drawing_branch_ids={this.props.drawing_branch_ids} drawing_urls={this.props.drawing_urls} />}
       </div>
     );
   }

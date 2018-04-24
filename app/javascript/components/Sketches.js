@@ -26,8 +26,10 @@ class SketchGrid extends React.Component {
               var imgsrc = '';
               var default_image = 0;
               var imgredirect = 'sketches/' + sketch_ids[index];
-              if (sketch_images[index].thumb.url != null) {
-                imgsrc = sketch_images[index].thumb.url;
+              console.log("where is this shit\n");
+              console.log(sketch_images[index]);
+              if (sketch_images[index] != null) {
+                imgsrc = sketch_images[index];
                 default_image = 1;
               }
               else {
@@ -36,8 +38,8 @@ class SketchGrid extends React.Component {
               return (
                 <li key={index} className="sketch-item">
                   <div className="sketch-container">
-                    {default_image == 0 && <a href={imgredirect}><img src={imgsrc} width="120" height="120"/></a>}
-                    {default_image != 0 && <a href={imgredirect}><img src={imgsrc}/></a>}
+                    {default_image == 0 && <a href={imgredirect}><img src={imgsrc} className="img-drawings" width="120" height="120"/></a>}
+                    {default_image != 0 && <a href={imgredirect}><img src={imgsrc} className="img-drawings" width="180" height="120"/></a>}
                     <a href={imgredirect} className="ugly-link"><div className="bold">{sketch_title}</div></a>
                     <div>{sketch_descriptions[index]}</div>
                   </div>

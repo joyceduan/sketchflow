@@ -17,8 +17,6 @@ class DrawingsController < ApplicationController
   def canvas
     # Rails.logger.debug(canvas_params)
     $sketch_id = canvas_params[:sketch_id]
-    # $branch_id = canvas_params[:sketch_id]
-
     @sketch = Sketch.find($sketch_id)
     # Rails.logger.debug(@sketch.title)
     # Rails.logger.debug("branch count: \n")
@@ -30,8 +28,15 @@ class DrawingsController < ApplicationController
       @master_branch = Branch.new(sketch_id: $sketch_id)
       @master_branch.save
       $branch_id = @master_branch.id
-
     end
+
+    if canvas_params[:new_branch]
+      @new_branch = Branch.new(sketch_id: $sketch_id)
+      @new_branch.save
+      $branch_id = @new_branch.id
+    end
+
+    # $branch_id = @master_branch.id
 
     # Rails.logger.debug($branch_id)
     $canvas_bg = canvas_params[:canvas_bg]
@@ -53,9 +58,11 @@ class DrawingsController < ApplicationController
   # POST /drawings.json
   def create
     @drawing = Drawing.new(drawing_params)
+    @sketch = Sketch.find(drawing_params[:sketch_id])
 
     respond_to do |format|
       if @drawing.save
+        @sketch.update_attributes(:data_url => drawing_params[:data_url])
         format.html { redirect_to @drawing, notice: 'Drawing was successfully created.' }
         format.json { render :show, status: :created, location: @drawing }
       else
@@ -101,6 +108,6 @@ class DrawingsController < ApplicationController
     end
 
     def canvas_params
-      params.require(:drawing).permit(:sketch_id, :canvas_bg)
+      params.require(:drawing).permit(:new_branch, :sketch_id, :canvas_bg)
     end
 end
