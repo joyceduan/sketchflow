@@ -17,6 +17,7 @@ class NavBar extends React.Component {
 								<img alt="Brand" src="/assets/sketchflowlogo.png" width="25" height="25"/>
 							</a>
 						</li>
+						<li><a href="/sketches">All Sketches</a></li>
 					</ul>
 				</div>
 				<ul className="nav navbar-nav navbar-right">
