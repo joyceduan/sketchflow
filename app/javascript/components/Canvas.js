@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import axios from "axios"
 import {CompactPicker} from 'react-color'
 import 'flexboxgrid';
 import {
@@ -54,7 +55,7 @@ const styles = {
         backgroundColor: '#fcfcfc'
     },
     appBar: {
-        backgroundColor: '#333'
+        backgroundColor: '#252525'
     },
     radioButton: {
         marginTop: '3px',
@@ -135,8 +136,30 @@ class Canvas extends React.Component {
     };
     _save = () => {
         let drawings = this.state.drawings;
+        var branch_id = this.props.branch_id;
+        var sketch_id = this.props.sketch_id;
+        var data_url = this._sketch.toDataURL();
         drawings.push(this._sketch.toDataURL());
+        console.log(branch_id);
+        console.log(sketch_id);
+        console.log(data_url);
         this.setState({drawings: drawings});
+
+        axios.post('/drawings', {
+            drawing: {
+              sketch_id: sketch_id,
+              branch_id: branch_id,
+              data_url: data_url,
+            }
+          }
+        )
+        .then(function (response) {
+          window.location = '/sketches/' + sketch_id;
+          // console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
     };
     _download = () => {
         /*eslint-disable no-console*/
@@ -250,6 +273,11 @@ class Canvas extends React.Component {
     };
     render = () => {
         let {controlledValue} = this.state;
+        var sketch_id = this.props.sketch_id;
+        var branch_id = this.props.branch_id;
+        var canvas_bg = this.props.canvas_bg;
+        console.log(canvas_bg);
+
         return (
             <MuiThemeProvider muiTheme={getMuiTheme()}>
                 <div>
@@ -299,23 +327,45 @@ class Canvas extends React.Component {
                         <div className='col-xs-7 col-sm-7 col-md-9 col-lg-9'>
 
                             {/* Sketch area */}
+                            {canvas_bg == "" &&
+                                <SketchField
+                                    name='sketch'
+                                    className='canvas-area'
+                                    ref={(c) => this._sketch = c}
+                                    lineColor={this.state.lineColor}
+                                    lineWidth={this.state.lineWidth}
+                                    fillColor={this.state.fillWithColor ? this.state.fillColor : 'transparent'}
+                                    backgroundColor={this.state.fillWithBackgroundColor ? this.state.backgroundColor : 'transparent'}
+                                    width={this.state.controlledSize ? this.state.sketchWidth : null}
+                                    height={this.state.controlledSize ? this.state.sketchHeight : null}
+                                    value={controlledValue}
+                                    forceValue={true}
+                                    onChange={this._onSketchChange}
+                                    tool={this.state.tool}
+                                />
+                            }
 
-                            <SketchField
-                                name='sketch'
-                                className='canvas-area'
-                                ref={(c) => this._sketch = c}
-                                lineColor={this.state.lineColor}
-                                lineWidth={this.state.lineWidth}
-                                fillColor={this.state.fillWithColor ? this.state.fillColor : 'transparent'}
-                                backgroundColor={this.state.fillWithBackgroundColor ? this.state.backgroundColor : 'transparent'}
-                                width={this.state.controlledSize ? this.state.sketchWidth : null}
-                                height={this.state.controlledSize ? this.state.sketchHeight : null}
-                                defaultValue={dataJson}
-                                value={controlledValue}
-                                forceValue={true}
-                                onChange={this._onSketchChange}
-                                tool={this.state.tool}
-                            />
+                            {canvas_bg != "" &&
+                                <SketchField
+                                    name='sketch'
+                                    className='canvas-area'
+                                    ref={(c) => this._sketch = c}
+                                    lineColor={this.state.lineColor}
+                                    lineWidth={this.state.lineWidth}
+                                    fillColor={this.state.fillWithColor ? this.state.fillColor : 'transparent'}
+                                    backgroundColor={this.state.fillWithBackgroundColor ? this.state.backgroundColor : 'transparent'}
+
+                                    width={this.state.controlledSize ? this.state.sketchWidth : null}
+                                    height={this.state.controlledSize ? this.state.sketchHeight : null}
+                                    value={controlledValue}
+                                    forceValue={true}
+                                    onChange={this._onSketchChange}
+                                    tool={this.state.tool}
+
+                                /> 
+                            }
+
+
 
                         </div>
                         <div className='col-xs-5 col-sm-5 col-md-3 col-lg-3'>
@@ -460,47 +510,27 @@ class Canvas extends React.Component {
                                             label='Load Image from Data URL'
                                             onTouchTap={(e) => this._sketch.addImg(dataUrl)}/>
                                     </div>
-
-                                </CardText>
-                            </Card>
-
-                            <Card style={{margin: '5px 10px 5px 0'}}>
-                                <CardHeader title='Controlled value' actAsExpander={true} showExpandableButton={true}/>
-                                <CardText expandable={true}>
-
                                     <div>
-
                                         <RaisedButton
-                                            label='Load controlled Value'
-                                            onTouchTap={(e) => this.setState({
-                                                controlledValue: dataJsonControlled
-                                            })}
-                                        />
+                                            label='Pull'
+                                            onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
                                     </div>
 
                                 </CardText>
                             </Card>
-                        </div>
-                    </div>
 
-                    {/*Saved Paintings*/}
-
-                    <div className='row'>
-                        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div className="box" style={styles.root}>
-                                <GridList
-                                    cols={5}
-                                    cellHeight={200}
-                                    padding={1} style={styles.gridList}>
-                                    {this.state.drawings.map(this._renderTile)}
-                                </GridList>
-                            </div>
                         </div>
                     </div>
                 </div>
             </MuiThemeProvider>
         )
     };
+}
+
+Canvas.propTypes = {
+  sketch_id: PropTypes.number.isRequired,
+  branch_id: PropTypes.number.isRequired,
+  canvas_bg: PropTypes.string.isRequired,
 }
 
 export default Canvas;

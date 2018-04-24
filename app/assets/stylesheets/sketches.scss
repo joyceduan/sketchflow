@@ -1,6 +1,52 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.tiny-button {
+	border: none;
+	background: #F31188;
+	font-size: 11px;
+	border-radius: 3px;
+	width: 80px;
+	text-align: center;
+	display: inline-block;
+	padding: 7px 0;
+	margin: 10px auto;
+	margin-left: 7px;
+	margin-right: 7px;
+	color: #F5F5F5;
+	font-family: 'Source Sans Pro';
+}
+
+.tiny-button:hover:enabled {
+	color: #FFFEFE;
+	text-decoration: none;
+}
+
+.tiny-button:active {
+	transform: translateY(1px);
+}
+
+.tiny-button:disabled,{
+  background-color: #cccccc;
+}
+
+.tiny-button[name='continue-branch'] {
+	background: #FF5533;
+}
+
+.tiny-button[name='new-branch'] {
+	background: #F31188;
+}
+
+.column {
+	text-align:center
+}
+
+.img-drawings {
+	margin-top: 10px;
+	background-color:white;
+}
+
 .ugly-link {
     color: #000000;
     text-decoration: none;
@@ -98,6 +144,18 @@
 	flex-direction: column;
 }
 
+.show-branches-container {
+	display: flex;
+	margin-top: 70px;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.branch-title {
+	font-family: 'Pacifico';
+	font-size: 300%;
+}
+
 .no-drawings-container {
 	display: flex;
 	flex-direction: column;
@@ -105,7 +163,7 @@
 }
 
 #sketch-title {
-	margin-top: 30px;
+	margin-top: 100px;
 	text-align: center;
 	font-size: 400%;
 	font-family: 'Pacifico';

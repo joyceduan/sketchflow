@@ -5,7 +5,7 @@
   <body>
       <%= javascript_pack_tag 'application' %>
       <% if user_signed_in? %>
-        <%= react_component("SketchHome", {username: current_user.name, sketch_title: @sketch.title, sketch_description: @sketch.description, branch_count: @sketch.branches.count}) %>
+        <%= react_component("SketchHome", {username: current_user.name, sketch_id: @sketch.id, sketch_title: @sketch.title, sketch_description: @sketch.description, branch_count: @sketch.branches.count, branch_ids: @sketch.branches.collect(&:id), drawing_branch_ids: @sketch.drawings.collect(&:branch_id), drawing_urls: @sketch.drawings.collect(&:data_url)}) %>
       <% else %>
         <%= react_component("Home") %>
       <% end %>

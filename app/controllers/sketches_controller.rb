@@ -12,8 +12,9 @@ class SketchesController < ApplicationController
   # GET /sketches/1.json
   def show
     @sketch = Sketch.find(params[:id])
-    Rails.logger.debug(@sketch.branches.count)
-    Rails.logger.debug(@sketch.drawings.count)
+    Rails.logger.debug(@sketch.branches.collect(&:id))
+    Rails.logger.debug(@sketch.drawings.collect(&:branch_id))
+    # Rails.logger.debug(@sketch.drawings.collect(&:data_url))
   end
 
   # GET /sketches/new

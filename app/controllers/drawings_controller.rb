@@ -15,14 +15,34 @@ class DrawingsController < ApplicationController
 
   # POST /drawings/canvas
   def canvas
-    Rails.logger.debug(canvas_params[:canvas_bg])
+    # Rails.logger.debug(canvas_params)
+    $sketch_id = canvas_params[:sketch_id]
+    # $branch_id = canvas_params[:sketch_id]
+
+    @sketch = Sketch.find($sketch_id)
+    # Rails.logger.debug(@sketch.title)
+    # Rails.logger.debug("branch count: \n")
+    # Rails.logger.debug(@sketch.branches.count)
+
+    # Rails.logger.debug("um \n")
+    if @sketch.branches.count == 0
+      # Rails.logger.debug("hello!!\n")
+      @master_branch = Branch.new(sketch_id: $sketch_id)
+      @master_branch.save
+      $branch_id = @master_branch.id
+
+    end
+
+    # Rails.logger.debug($branch_id)
     $canvas_bg = canvas_params[:canvas_bg]
   end
 
   # GET /drawings/new
   def new
     @drawing = Drawing.new()
+    @sketch_id = $sketch_id
     @canvas_bg = $canvas_bg
+    @branch_id = $branch_id
   end
 
   # GET /drawings/1/edit
@@ -77,10 +97,10 @@ class DrawingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def drawing_params
-      params.require(:drawing).permit(:branch_id)
+      params.require(:drawing).permit(:sketch_id, :branch_id, :data_url)
     end
 
     def canvas_params
-      params.require(:drawing).permit(:canvas_bg)
+      params.require(:drawing).permit(:sketch_id, :canvas_bg)
     end
 end

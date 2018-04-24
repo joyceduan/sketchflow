@@ -5,7 +5,7 @@
   <body>
       <%= javascript_pack_tag 'application' %>
       <% if user_signed_in? %>
-        <%= react_component("Canvas") %>
+        <%= react_component("Canvas", {sketch_id: @sketch_id, branch_id: @branch_id, canvas_bg: @canvas_bg}) %>
       <% else %>
         <%= react_component("Home") %>
       <% end %>
