@@ -8,6 +8,40 @@ class ShowBranchesAndDrawings extends React.Component {
     super(props);
     this.startDrawing = this.startDrawing.bind(this);
     this.startDrawingNewBranch = this.startDrawingNewBranch.bind(this);
+    this.mergeBranch = this.mergeBranch.bind(this);
+  }
+  mergeBranch(event) {
+    event.preventDefault();
+    var branch_id = event.target.id;
+    // console.log("branch_id: " + branch_id);
+    var sketch_id = this.props.sketch_id;
+    // console.log("sketch_id: " + sketch_id);
+    var drawing_urls = this.props.drawing_urls;
+    // console.log("drawing_urls: " + drawing_urls)
+    var drawing_branch_ids = this.props.drawing_branch_ids;
+    // console.log("drawing branch ids: " + drawing_branch_ids);
+    var drawing_url = ""
+    for (var i = 0; i < drawing_branch_ids.length; i++) {
+      if (drawing_branch_ids[i] == branch_id) {
+        drawing_url = drawing_urls[i]
+      }
+    }
+    axios.post('/drawings/canvas', {
+        drawing: {
+          new_branch: false,
+          merge_branch: true,
+          sketch_id: sketch_id,
+          canvas_bg: drawing_url,
+        }
+      }
+    )
+    .then(function (response) {
+      window.location = '/drawings/new';
+      // console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
   }
   startDrawingNewBranch(event) {
     var drawing_url = this.props.drawing_urls[event.target.id];
@@ -18,6 +52,7 @@ class ShowBranchesAndDrawings extends React.Component {
     axios.post('/drawings/canvas', {
         drawing: {
           new_branch: true,
+          merge_branch: false, 
           sketch_id: sketch_id,
           canvas_bg: drawing_url,
         }
@@ -40,6 +75,7 @@ class ShowBranchesAndDrawings extends React.Component {
     axios.post('/drawings/canvas', {
         drawing: {
           new_branch: false,
+          merge_branch: false, 
           sketch_id: sketch_id,
           canvas_bg: drawing_url,
         }
@@ -59,19 +95,19 @@ class ShowBranchesAndDrawings extends React.Component {
     var branch_ids  = this.props.branch_ids;
     var drawing_branch_ids = this.props.drawing_branch_ids;
     var drawing_urls = this.props.drawing_urls;
-    console.log('branch ids: \n');
-    console.log(branch_ids);
+    // console.log('branch ids: \n');
+    // console.log(branch_ids);
     return (
       <div>
         <h2 id="sketch-title-with-branches">{sketch_title}</h2>
         <div className="show-branches-container">
           <div className="row">
             {branch_ids.map(function(branch_id, i) {
-                console.log(i);
                 return (
                   <div key={i} className="column">
                     {i == 0 && <h2 className="branch-title">Master</h2>}
                     {i != 0 && <h2 className="branch-title">{"Branch " + i}</h2>}
+                    {i != 0 && <a href="drawings/new" id={branch_id} className="tiny-button" onClick={self.mergeBranch} name="merge-branch">Merge Into Master</a>}
                     {drawing_branch_ids.map(function(drawing_branch_id, j) {
                       if (drawing_branch_id == branch_id) {
                         return (

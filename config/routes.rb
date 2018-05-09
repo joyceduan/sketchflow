@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get 'static_pages/home'
   get '/', to: 'static_pages#home'
   post '/drawings/canvas', to: 'drawings#canvas'
+  post '/drawings/merge', to: 'drawings#merge'
 end

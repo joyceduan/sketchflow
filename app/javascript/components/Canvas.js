@@ -161,6 +161,33 @@ class Canvas extends React.Component {
           console.log(error);
         }); 
     };
+    _saveToMaster = () => {
+        let drawings = this.state.drawings;
+        var branch_id = this.props.branch_id;
+        var sketch_id = this.props.sketch_id;
+        var data_url = this._sketch.toDataURL();
+        drawings.push(this._sketch.toDataURL());
+        console.log(branch_id);
+        console.log(sketch_id);
+        console.log(data_url);
+        this.setState({drawings: drawings});
+
+        axios.post('/drawings/merge', {
+            drawing: {
+              sketch_id: sketch_id,
+              branch_id: branch_id,
+              data_url: data_url,
+            }
+          }
+        )
+        .then(function (response) {
+          window.location = '/sketches/' + sketch_id;
+          // console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
+    };
     _download = () => {
         /*eslint-disable no-console*/
 
@@ -276,7 +303,8 @@ class Canvas extends React.Component {
         var sketch_id = this.props.sketch_id;
         var branch_id = this.props.branch_id;
         var canvas_bg = this.props.canvas_bg;
-        console.log(canvas_bg);
+        var master_bg = this.props.master_bg;
+        var merge = this.props.merge;
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -336,9 +364,8 @@ class Canvas extends React.Component {
                                     lineWidth={this.state.lineWidth}
                                     fillColor={this.state.fillWithColor ? this.state.fillColor : 'transparent'}
                                     backgroundColor={this.state.fillWithBackgroundColor ? this.state.backgroundColor : 'transparent'}
-                                    width={this.state.controlledSize ? this.state.sketchWidth : null}
-                                    height={this.state.controlledSize ? this.state.sketchHeight : null}
-                                    value={controlledValue}
+                                    width='900px'
+                                    height='600px'
                                     forceValue={true}
                                     onChange={this._onSketchChange}
                                     tool={this.state.tool}
@@ -355,8 +382,8 @@ class Canvas extends React.Component {
                                     fillColor={this.state.fillWithColor ? this.state.fillColor : 'transparent'}
                                     backgroundColor={this.state.fillWithBackgroundColor ? this.state.backgroundColor : 'transparent'}
 
-                                    width={this.state.controlledSize ? this.state.sketchWidth : null}
-                                    height={this.state.controlledSize ? this.state.sketchHeight : null}
+                                    width='900px'
+                                    height='600px' 
                                     value={controlledValue}
                                     forceValue={true}
                                     onChange={this._onSketchChange}
@@ -423,10 +450,33 @@ class Canvas extends React.Component {
                                 </CardText>
                             </Card>
 
-                            <div>
-                                <br/>
-                                <RaisedButton label='Pull From Branch' onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
-                            </div>
+                            {!merge && 
+                                <div>
+                                    <br/>
+                                    <RaisedButton label='Pull From Branch' onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
+                                </div>
+                            }
+
+                            {merge &&
+                                <div>
+                                    <br/>
+                                    <RaisedButton label='MERGE: Pull From Branch' onTouchTap={(e) => this._sketch.addImg(canvas_bg)}/>
+                                </div>
+                            }
+
+                            {merge &&
+                                <div>
+                                    <br/>
+                                    <RaisedButton label='MERGE: Pull From Master' onTouchTap={(e) => this._sketch.addImg(master_bg)}/>
+                                </div>
+                            }
+
+                            {merge &&
+                                <div>
+                                    <br/>
+                                    <RaisedButton label='MERGE: Save to Master' onTouchTap={this._saveToMaster}/>
+                                </div>
+                            }
 
                         </div>
                     </div>
@@ -440,6 +490,8 @@ Canvas.propTypes = {
   sketch_id: PropTypes.number.isRequired,
   branch_id: PropTypes.number.isRequired,
   canvas_bg: PropTypes.string.isRequired,
+  master_bg: PropTypes.string.isRequired,
+  merge: PropTypes.bool.isRequired,
 }
 
 export default Canvas;

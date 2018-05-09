@@ -15,16 +15,9 @@ class DrawingsController < ApplicationController
 
   # POST /drawings/canvas
   def canvas
-    # Rails.logger.debug(canvas_params)
     $sketch_id = canvas_params[:sketch_id]
     @sketch = Sketch.find($sketch_id)
-    # Rails.logger.debug(@sketch.title)
-    # Rails.logger.debug("branch count: \n")
-    # Rails.logger.debug(@sketch.branches.count)
-
-    # Rails.logger.debug("um \n")
     if @sketch.branches.count == 0
-      # Rails.logger.debug("hello!!\n")
       @master_branch = Branch.new(sketch_id: $sketch_id)
       @master_branch.save
       $branch_id = @master_branch.id
@@ -36,11 +29,41 @@ class DrawingsController < ApplicationController
       $branch_id = @new_branch.id
     end
 
+    # merging into master
+    if canvas_params[:merge_branch]
+      Rails.logger.debug("hi sketch branches")
+      Rails.logger.debug(@sketch.branches.first.id)
+
+      Rails.logger.debug("master branch last drawing")
+      # Rails.logger.debug(@sketch.branches.first.drawings.last.data_url)
+      $master_bg = @sketch.branches.first.drawings.last.data_url
+      Rails.logger.debug($master_bg)
+      $branch_id = @sketch.branches.first.id
+    end
+
     # $branch_id = @master_branch.id
 
     # Rails.logger.debug($branch_id)
     $canvas_bg = canvas_params[:canvas_bg]
   end
+
+  # POST /drawings/merge
+  def merge
+    @drawing = Drawing.new(drawing_params)
+    @sketch = Sketch.find(drawing_params[:sketch_id])
+
+    respond_to do |format|
+      if @drawing.save
+        @sketch.update_attributes(:data_url => drawing_params[:data_url])
+        format.html { redirect_to @drawing, notice: 'Drawing was successfully created.' }
+        format.json { render :show, status: :created, location: @drawing }
+      else
+        format.html { render :new }
+        format.json { render json: @drawing.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   # GET /drawings/new
   def new
@@ -48,6 +71,17 @@ class DrawingsController < ApplicationController
     @sketch_id = $sketch_id
     @canvas_bg = $canvas_bg
     @branch_id = $branch_id
+    @master_bg = $master_bg
+
+    Rails.logger.debug("master branch new url") 
+    Rails.logger.debug(@master_bg)
+
+    if @master_bg
+      @merge = true
+      Rails.logger.debug("merge is true")
+    else 
+      @merge = false
+    end  
   end
 
   # GET /drawings/1/edit
@@ -108,6 +142,6 @@ class DrawingsController < ApplicationController
     end
 
     def canvas_params
-      params.require(:drawing).permit(:new_branch, :sketch_id, :canvas_bg)
+      params.require(:drawing).permit(:new_branch, :merge_branch, :sketch_id, :canvas_bg)
     end
 end
